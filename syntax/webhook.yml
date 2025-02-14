@@ -1,0 +1,3 @@
+on:
+  webhook:
+    url:https://example.com/my-webhook

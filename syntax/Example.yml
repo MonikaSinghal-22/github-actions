@@ -1,0 +1,23 @@
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:                        #job name: Unique for the job
+    runs-on: ubuntu-latest       #Target runner type
+
+    steps:                        #List of steps to be executed within the job
+      - uses: actions/checkout@v3  # uses: use a pre-built action
+      - name: Install dependencies # name: custom name for the step
+        run: npm install           #command to execute
+      - name: Build website
+        run: npm run build
+      - name: Deploy to Netlify
+        uses: netlify/actions/cli@v1.1
+        with:                                  #Input values for the action
+          site_id: your_netlify_site_id
+          api_key: your_netlify_api_key
+          args: deploy --prod
+
+      - name: Run Tests
+        run: npm test
